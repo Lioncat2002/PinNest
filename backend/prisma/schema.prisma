@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+model Pin {
+  id          Int       @id @default(sequence())
+  url         String
+  pinsByUsers UserPin[]
+}
+
+model UserPin {
+  id     Int  @id @default(sequence())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+  pin    Pin  @relation(fields: [pinId], references: [id])
+  pinId  Int
+}
+
+model User {
+  id          Int       @id @default(sequence())
+  email       String    @unique
+  pinsByUsers UserPin[]
+}
