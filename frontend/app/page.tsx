@@ -26,7 +26,7 @@ export default function Home() {
   let [images, setImages] = useState<string[]>([]);
   useEffect(() => {
     async function loadimg() {
-      const data = await fetch("http://localhost:3000/pin");
+      const data = await fetch("https://imgnest.fly.dev/pin");
       const res = await data.json();
       setImages(res);
     }
